@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rsr-Mv-Xqh">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--MemeMe v1-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe_1_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gea-BM-fWs"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0rY-Xs-EgS">
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="done"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IZ9-2D-VDz">
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="done"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="centerX" secondItem="Gea-BM-fWs" secondAttribute="centerX" id="84M-6p-8FO"/>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="leading" secondItem="IZ9-2D-VDz" secondAttribute="leading" id="Cjd-df-wfa"/>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="76" id="UFD-jr-uW4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IZ9-2D-VDz" secondAttribute="bottom" constant="73" id="ckQ-VO-7F7"/>
+                            <constraint firstItem="Gea-BM-fWs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cmh-zA-X6g"/>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="trailing" secondItem="IZ9-2D-VDz" secondAttribute="trailing" id="fWf-Ud-pLE"/>
+                            <constraint firstItem="Gea-BM-fWs" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="gif-Ca-xqG"/>
+                            <constraint firstAttribute="trailing" secondItem="Gea-BM-fWs" secondAttribute="trailing" id="pt0-Qv-FTA"/>
+                            <constraint firstItem="Gea-BM-fWs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="s19-vp-r3u"/>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="x5S-UX-UTI"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem title="Photo Album" id="WGM-qv-bMn">
+                            <connections>
+                                <action selector="pickAnImageFromAlbum" destination="BYZ-38-t0r" id="tcE-yY-1Wc"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="gV3-Qa-XBq"/>
+                        <barButtonItem title="Camera" id="D85-sR-hyj">
+                            <connections>
+                                <action selector="pickAnImageFromCamera" destination="BYZ-38-t0r" id="ksF-eW-p4o"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="MemeMe v1" id="dtp-Z6-s8e"/>
+                    <connections>
+                        <outlet property="bottomTextField" destination="IZ9-2D-VDz" id="lZb-fF-xEF"/>
+                        <outlet property="cameraButton" destination="D85-sR-hyj" id="FCd-xX-6M7"/>
+                        <outlet property="imagePickerView" destination="Gea-BM-fWs" id="sL8-ZO-ATa"/>
+                        <outlet property="topTextField" destination="0rY-Xs-EgS" id="V3B-aH-2yU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893.60000000000002" y="-546.47676161919048"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kHV-Jf-k0B">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="Rsr-Mv-Xqh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2Hs-sO-fEz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zPa-8r-gI5">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="4fu-tA-TDq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fRs-He-FV6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="-546.47676161919048"/>
+        </scene>
+    </scenes>
+</document>
