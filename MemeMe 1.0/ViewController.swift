@@ -14,18 +14,31 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    
+    var memedImage: UIImage!
     
     let defaultTopText = "Top"
     let defaultBottomText = "Bottom"
     
+    struct Meme {
+        let topText: String
+        let bottomText: String
+        let originalImage: UIImage
+        let memedImage: UIImage
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.shareButton.isEnabled = false
+        self.cancelButton.isEnabled = false
+        
         topTextField.delegate = self
         bottomTextField.delegate = self
         
         configureMemeUI()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +51,32 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         super.viewWillDisappear(animated)
         unsubscribeToObserverNotifications()
     }
+    
+    func save() {
+        // create the meme
+        memedImage = generateMemedImage()
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
+    }
+    
+    func generateMemedImage() -> UIImage {
+        
+        // Hide toolbar and navbar
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setToolbarHidden(true, animated: false)
+        
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        // Show toolbar and navbar
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setToolbarHidden(false, animated: false)
+        
+        return memedImage
+    }
+
     
     func subscribeToObserverNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
@@ -57,6 +96,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
             NSStrokeWidthAttributeName: -3.0,
             ] as [String : Any]
+        
+        self.imagePickerView.image = nil
+        self.imagePickerView.backgroundColor = UIColor.gray
+        self.view.backgroundColor = UIColor.gray
         
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
@@ -128,6 +171,20 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         self.present(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func shareMeme() {
+        let memedImage = generateMemedImage()
+        let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        present(activityController, animated: true) {
+            self.save()
+        }
+    }
+    
+    @IBAction func cancel() {
+        self.configureMemeUI()
+        self.cancelButton.isEnabled = false
+        self.shareButton.isEnabled = false
+    }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -136,8 +193,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
+            self.shareButton.isEnabled = true
+            self.cancelButton.isEnabled = true
         }
     }
-    
 }
 

@@ -16,10 +16,10 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gea-BM-fWs"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gea-BM-fWs"/>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0rY-Xs-EgS">
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -33,16 +33,16 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="centerX" secondItem="Gea-BM-fWs" secondAttribute="centerX" id="84M-6p-8FO"/>
-                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="leading" secondItem="IZ9-2D-VDz" secondAttribute="leading" id="Cjd-df-wfa"/>
-                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="76" id="UFD-jr-uW4"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IZ9-2D-VDz" secondAttribute="bottom" constant="73" id="ckQ-VO-7F7"/>
-                            <constraint firstItem="Gea-BM-fWs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cmh-zA-X6g"/>
-                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="trailing" secondItem="IZ9-2D-VDz" secondAttribute="trailing" id="fWf-Ud-pLE"/>
-                            <constraint firstItem="Gea-BM-fWs" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="gif-Ca-xqG"/>
-                            <constraint firstAttribute="trailing" secondItem="Gea-BM-fWs" secondAttribute="trailing" id="pt0-Qv-FTA"/>
-                            <constraint firstItem="Gea-BM-fWs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="s19-vp-r3u"/>
-                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="x5S-UX-UTI"/>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="98" id="6RJ-4T-Zxh"/>
+                            <constraint firstItem="Gea-BM-fWs" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="K9j-Lb-li4"/>
+                            <constraint firstAttribute="trailing" secondItem="Gea-BM-fWs" secondAttribute="trailing" id="M4a-3q-r8K"/>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="leading" secondItem="IZ9-2D-VDz" secondAttribute="leading" id="Qlo-ay-VeQ"/>
+                            <constraint firstItem="Gea-BM-fWs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="b30-d8-yEg"/>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="16" id="bSw-c5-KRJ"/>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="centerX" secondItem="Gea-BM-fWs" secondAttribute="centerX" id="eN7-fw-xiJ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IZ9-2D-VDz" secondAttribute="bottom" constant="115" id="mUl-7d-0yL"/>
+                            <constraint firstItem="0rY-Xs-EgS" firstAttribute="trailing" secondItem="IZ9-2D-VDz" secondAttribute="trailing" id="nlQ-pi-Evs"/>
+                            <constraint firstItem="Gea-BM-fWs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="szt-QL-vo0"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -52,23 +52,36 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="gV3-Qa-XBq"/>
-                        <barButtonItem title="Camera" id="D85-sR-hyj">
+                        <barButtonItem systemItem="camera" id="D85-sR-hyj">
                             <connections>
                                 <action selector="pickAnImageFromCamera" destination="BYZ-38-t0r" id="ksF-eW-p4o"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="MemeMe v1" id="dtp-Z6-s8e"/>
+                    <navigationItem key="navigationItem" title="MemeMe v1" id="dtp-Z6-s8e">
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="MMC-hb-pIZ">
+                            <connections>
+                                <action selector="shareMeme" destination="BYZ-38-t0r" id="En0-nI-hKs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="GB8-6P-VLQ">
+                            <connections>
+                                <action selector="cancel" destination="BYZ-38-t0r" id="dlA-6c-y5A"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bottomTextField" destination="IZ9-2D-VDz" id="lZb-fF-xEF"/>
                         <outlet property="cameraButton" destination="D85-sR-hyj" id="FCd-xX-6M7"/>
+                        <outlet property="cancelButton" destination="GB8-6P-VLQ" id="e9E-BC-oTv"/>
                         <outlet property="imagePickerView" destination="Gea-BM-fWs" id="sL8-ZO-ATa"/>
+                        <outlet property="shareButton" destination="MMC-hb-pIZ" id="FPS-mi-gq7"/>
                         <outlet property="topTextField" destination="0rY-Xs-EgS" id="V3B-aH-2yU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="893.60000000000002" y="-546.47676161919048"/>
+            <point key="canvasLocation" x="892.75362318840587" y="-547.01086956521749"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kHV-Jf-k0B">
@@ -81,7 +94,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zPa-8r-gI5">
-                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="692" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
