@@ -1,17 +1,18 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeMe 1.0
 //
-//  Created by Abidi on 10/10/16.
+//  Created by Ali Mir on 10/10/16.
 //  Copyright © 2016 com.AliMir. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
+    @IBOutlet weak var photoAlbumButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var shareButton: UIBarButtonItem!
@@ -21,13 +22,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     let defaultTopText = "Top"
     let defaultBottomText = "Bottom"
-    
-    struct Meme {
-        let topText: String
-        let bottomText: String
-        let originalImage: UIImage
-        let memedImage: UIImage
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,10 +46,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         unsubscribeToObserverNotifications()
     }
     
-    func save() {
+    func saveMeme() {
         // create the meme
         memedImage = generateMemedImage()
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
+        
     }
     
     func generateMemedImage() -> UIImage {
@@ -81,7 +76,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     func subscribeToObserverNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
-        
     }
     
     func unsubscribeToObserverNotifications() {
@@ -90,6 +84,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     func configureMemeUI() {
+        self.imagePickerView.image = nil
+        self.imagePickerView.backgroundColor = UIColor.black
+        self.view.backgroundColor = UIColor.black
+        
+        configureTextFields(textFields: [self.topTextField, self.bottomTextField])
+    }
+    
+    func configureTextFields(textFields: [UITextField]) {
         let memeTextAttributes = [
             NSStrokeColorAttributeName: UIColor.black,
             NSForegroundColorAttributeName: UIColor.white,
@@ -97,17 +99,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             NSStrokeWidthAttributeName: -3.0,
             ] as [String : Any]
         
-        self.imagePickerView.image = nil
-        self.imagePickerView.backgroundColor = UIColor.gray
-        self.view.backgroundColor = UIColor.gray
-        
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        topTextField.textAlignment = .center
-        topTextField.text = defaultTopText
-        bottomTextField.textAlignment = .center
-        bottomTextField.text = defaultBottomText
+        for textField in textFields {
+            textField.defaultTextAttributes = memeTextAttributes
+            textField.textAlignment = .center
+            if textField == self.topTextField {
+                textField.text = defaultTopText
+            } else if textField == self.bottomTextField {
+                textField.text = defaultBottomText
+            }
+        }
     }
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
@@ -119,7 +119,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     func keyboardWillShow(notification: NSNotification) {
         // move picture view when the keyboard shows
         if bottomTextField.isEditing {
-            self.view.frame.origin.y -= getKeyboardHeight(notification: notification)
+            self.view.frame.origin.y = getKeyboardHeight(notification: notification) * (-1)
         }
     }
     
@@ -158,25 +158,33 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         return true
     }
     
-    @IBAction func pickAnImageFromAlbum() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        self.present(imagePicker, animated: true, completion: nil)
+    @IBAction func pickAnImage(_ sender: AnyObject) {
+        if sender as! UIBarButtonItem == cameraButton {
+            pickAnImageFromSource(sourceType: .camera)
+        } else if sender as! UIBarButtonItem == photoAlbumButton {
+            pickAnImageFromSource(sourceType: .photoLibrary)
+        }
     }
     
-    @IBAction func pickAnImageFromCamera() {
+    func pickAnImageFromSource(sourceType: UIImagePickerControllerSourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .camera
+        imagePicker.sourceType = sourceType
         self.present(imagePicker, animated: true, completion: nil)
     }
     
     @IBAction func shareMeme() {
         let memedImage = generateMemedImage()
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        present(activityController, animated: true) {
-            self.save()
+        
+        activityController.completionWithItemsHandler = {
+            (activity: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if completed {
+                self.saveMeme()
+            }
         }
+        
+        present(activityController, animated: true, completion: nil)
     }
     
     @IBAction func cancel() {

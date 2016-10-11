@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  MemeMe 1.0
 //
-//  Created by Abidi on 10/10/16.
+//  Created by Ali Mir on 10/10/16.
 //  Copyright © 2016 com.AliMir. All rights reserved.
 //
 
