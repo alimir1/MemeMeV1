@@ -25,18 +25,13 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.shareButton.isEnabled = false
-        self.cancelButton.isEnabled = false
-        
-        topTextField.delegate = self
-        bottomTextField.delegate = self
-        
+        shareButton.isEnabled = false
+        cancelButton.isEnabled = false
         configureMemeUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         subscribeToObserverNotifications()
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
     }
@@ -58,13 +53,11 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         // Hide toolbar and navbar
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
-        
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        
         // Show toolbar and navbar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.setToolbarHidden(false, animated: false)
@@ -84,11 +77,11 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     func configureMemeUI() {
-        self.imagePickerView.image = nil
-        self.imagePickerView.backgroundColor = UIColor.black
+        imagePickerView.image = nil
+        imagePickerView.backgroundColor = UIColor.black
         self.view.backgroundColor = UIColor.black
         
-        configureTextFields(textFields: [self.topTextField, self.bottomTextField])
+        configureTextFields(textFields: [topTextField, bottomTextField])
     }
     
     func configureTextFields(textFields: [UITextField]) {
@@ -102,9 +95,9 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         for textField in textFields {
             textField.defaultTextAttributes = memeTextAttributes
             textField.textAlignment = .center
-            if textField == self.topTextField {
+            if textField == topTextField {
                 textField.text = defaultTopText
-            } else if textField == self.bottomTextField {
+            } else if textField == bottomTextField {
                 textField.text = defaultBottomText
             }
         }
@@ -113,6 +106,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // CGRect
+        
         return keyboardSize.cgRectValue.height
     }
     
@@ -155,6 +149,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        
         return true
     }
     
@@ -183,14 +178,13 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
                 self.saveMeme()
             }
         }
-        
         present(activityController, animated: true, completion: nil)
     }
     
     @IBAction func cancel() {
-        self.configureMemeUI()
-        self.cancelButton.isEnabled = false
-        self.shareButton.isEnabled = false
+        configureMemeUI()
+        cancelButton.isEnabled = false
+        shareButton.isEnabled = false
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -201,8 +195,8 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
-            self.shareButton.isEnabled = true
-            self.cancelButton.isEnabled = true
+            shareButton.isEnabled = true
+            cancelButton.isEnabled = true
         }
     }
 }
